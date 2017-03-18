@@ -18,7 +18,7 @@ var shoppingItemTemplate = (
   '</li>'
 );
 
-
+/*
 
 var recipeTemplate = (
   '<div class="recipe js-recipe">' +
@@ -33,12 +33,12 @@ var recipeTemplate = (
     '</div>' +
   '</div>'
 );
+*/
 
-
-var RECIPES_URL = '/recipes';
+//var RECIPES_URL = '/recipes';
 var SHOPPING_LIST_URL = '/shopping-list';
 var BLOG_URL = '/blog'; 
-
+/*
 
 function getAndDisplayRecipes() {
   console.log('Retrieving recipes')
@@ -57,7 +57,7 @@ function getAndDisplayRecipes() {
     $('.js-recipes').html(recipesElement)
   });
 }
-
+*/
 function getAndDisplayShoppingList() {
   console.log('Retrieving shopping list');
   $.getJSON(BLOG_URL, function(items) {
@@ -77,31 +77,11 @@ function getAndDisplayShoppingList() {
     $('.js-shopping-list').html(itemElements);
   });
 }
+
+
+
+
 /*
-THIS RETURNS THE SHOPPING LIST WITH NAMES OF THE BLOG POSTS INSTEAD OF SHOPPING LIST ITEMS. CURRENTLY USING SHOPPING LIST TEMPLATE AND NAMING SCHEMES. WILL BE FURTHER MODIFIED AFTER THE ADDITION OF A BLOGPOST TEMPLATE AND RENAMING OF CLASSES, ID'S, ETC.
-
-function getAndDisplayShoppingList() {
-  console.log('Retrieving shopping list');
-  $.getJSON(BLOG_URL, function(items) {     // originally was SHOPPING_LIST_URL
-    console.log('Rendering shopping list');
-    var itemElements = items.map(function(item) {
-      var element = $(shoppingItemTemplate);
-      element.attr('id', item.id);
-      var itemName = element.find('.js-shopping-item-name');
-      itemName.text(item.title);    //originally was item.name
-      element.attr('data-checked', item.checked);
-      if (item.checked) {
-        itemName.addClass('shopping-item__checked');
-      }
-      return element
-    });
-    $('.js-shopping-list').html(itemElements);
-  });
-}
-
-
-
-*/
 
 function addRecipe(recipe) {
   console.log('Adding recipe: ' + recipe);
@@ -116,7 +96,7 @@ function addRecipe(recipe) {
     contentType: 'application/json'
   });
 }
-
+*/
 function addShoppingItem(item) {
   console.log('Adding shopping item: ' + item);
   $.ajax({
@@ -130,7 +110,7 @@ function addShoppingItem(item) {
     contentType: 'application/json'
   });
 }
-
+/*
 function deleteRecipe(recipeId) {
   console.log('Deleting recipe `' + recipeId + '`');
   $.ajax({
@@ -139,7 +119,7 @@ function deleteRecipe(recipeId) {
     success: getAndDisplayRecipes
   });
 }
-
+*/
 function deleteShoppingItem(itemId) {
   console.log('Deleting shopping item `' + itemId + '`');
   $.ajax({
@@ -148,7 +128,7 @@ function deleteShoppingItem(itemId) {
     success: getAndDisplayShoppingList
   });
 }
-
+/*
 function updateRecipe(recipe) {
   console.log('Updating recipe `' + recipe.id + '`');
   $.ajax({
@@ -160,7 +140,7 @@ function updateRecipe(recipe) {
     }
   });
 }
-
+*/
 function updateShoppingListitem(item) {
   console.log('Updating shopping list item `' + item.id + '`');
   $.ajax({
@@ -175,7 +155,7 @@ function updateShoppingListitem(item) {
   });
 }
 
-
+/*
 function handleRecipeAdd() {
   $('#js-recipe-form').submit(function(e) {
     e.preventDefault();
@@ -189,7 +169,7 @@ function handleRecipeAdd() {
     });
   });
 }
-
+*/
 function handleShoppingListAdd() {
 
   $('#js-shopping-list-form').submit(function(e) {
@@ -202,7 +182,7 @@ function handleShoppingListAdd() {
   });
 
 }
-
+/*
 function handleRecipeDelete() {
   $('.js-recipes').on('click', '.js-recipe-delete', function(e) {
     e.preventDefault();
@@ -210,7 +190,7 @@ function handleRecipeDelete() {
       $(e.currentTarget).closest('.js-recipe').attr('id'));
   });
 }
-
+*/
 function handleShoppingListDelete() {
   $('.js-shopping-list').on('click', '.js-shopping-item-delete', function(e) {
     e.preventDefault();
@@ -238,8 +218,9 @@ $(function() {
   handleShoppingListAdd();
   handleShoppingListDelete();
   handleShoppingCheckedToggle();
-
+/*
   getAndDisplayRecipes();
   handleRecipeAdd();
   handleRecipeDelete();
+  */
 });
