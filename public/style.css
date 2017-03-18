@@ -14,21 +14,17 @@ button:hover {
   cursor: pointer;
 }
 
-#shopping-list-item {
-  width: 250px;
-}
-
 .container {
   max-width: 600px;
   margin: 0 auto;
 }
 
-.shopping-list {
+.blog {
   list-style: none;
   padding-left: 0;
 }
 
-.shopping-list > li {
+.blog > li {
   margin-bottom: 20px;
   border: 1px solid grey;
   padding: 20px;
