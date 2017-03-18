@@ -3,8 +3,6 @@ const morgan = require('morgan');
 
 const app = express();
 
-const shoppingListRouter = require('./shoppingListRouter');
-const recipesRouter = require('./recipesRouter');
 const blogRouter = require('./blogRouter');
 
 // log the http layer
@@ -16,13 +14,6 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-
-// when requests come into `/shopping-list` or
-// `/recipes`, we'll route them to the express
-// router instances we've imported. Remember,
-// these router instances act as modular, mini-express apps.
-app.use('/shopping-list', shoppingListRouter);
-app.use('/recipes', recipesRouter);
 app.use('/blog', blogRouter);
 
 app.listen(process.env.PORT || 8080, () => {
