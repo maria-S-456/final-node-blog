@@ -121,7 +121,7 @@ function addShoppingItem(item) {
   console.log('Adding shopping item: ' + item);
   $.ajax({
     method: 'POST',
-    url: SHOPPING_LIST_URL,
+    url: BLOG_URL,
     data: JSON.stringify(item),
     success: function(data) {
       getAndDisplayShoppingList();
@@ -195,8 +195,9 @@ function handleShoppingListAdd() {
   $('#js-shopping-list-form').submit(function(e) {
     e.preventDefault();
     addShoppingItem({
-      name: $(e.currentTarget).find('#js-new-item').val(),
-      checked: false
+      title: $(e.currentTarget).find('#js-new-item').val(),
+      author: $(e.currentTarget).find('#js-new-author').val(),
+      content: $(e.currentTarget).find('#js-new-content').val()
     });
   });
 
