@@ -1,0 +1,1 @@
+This app does CRUD operations for three api's, shopping list, recipes, and blog. Blog is not yet rendered to html successfully, and I am currently replacing shopping list with blog in regards to the html. Delete and get functions work with no issue, but put and post are a work in progress. Recipes is currently untouched and works with no problem.
