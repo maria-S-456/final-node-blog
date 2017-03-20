@@ -1,31 +1,36 @@
 
-var shoppingItemTemplate = (
-  '<li class="js-shopping-item">' +
-    '<p><span class="shopping-item js-shopping-item-name"></span></p>' +
+var blogTemplate = (
+  '<li class="js-blog-post">' +
+    '<p><span class="blog-post js-blog-post-name"></span></p>' +
 
     '<p><span class="author js-author">This is where the author will go.</span></p>' +
 
     '<p><span class="content js-content">This is where content will go.</span></p>' +
 
-    '<div class="shopping-item-controls">' +
-      '<button class="js-shopping-item-delete">' +
+    '<div class="blog-post-controls">' +
+
+      '<button class="js-blog-post-edit">' + '<span class="edit-button-label">Edit</span>' +
+
+   
+      '<button class="js-blog-post-delete">' +
         '<span class="button-label">delete</span>' +
+
       '</button>' +
     '</div>' +
   '</li>'
 );
 
-var SHOPPING_LIST_URL = '/shopping-list';
 var BLOG_URL = '/blog'; 
 
-function getAndDisplayShoppingList() {
-  console.log('Retrieving shopping list');
+
+function getAndDisplayBlog() {
+  console.log('Retrieving blogs');
   $.getJSON(BLOG_URL, function(items) {
-    console.log('Rendering shopping list');
+    console.log('Rendering blogs');
     var itemElements = items.map(function(item) {
-      var element = $(shoppingItemTemplate);
+      var element = $(blogTemplate);
       element.attr('id', item.id);
-      var itemName = element.find('.js-shopping-item-name');
+      var itemName = element.find('.js-blog-post-name');
       var authorName = element.find('.js-author');
       var blogContent = element.find('.js-content');
       itemName.text(item.title);
@@ -38,49 +43,36 @@ function getAndDisplayShoppingList() {
   });
 }
 
-function addShoppingItem(item) {
-  console.log('Adding shopping item: ' + item);
+function addBlogPost(item) {
+  console.log('Adding blog post: ' + item);
   $.ajax({
     method: 'POST',
     url: BLOG_URL,
     data: JSON.stringify(item),
     success: function(data) {
-      getAndDisplayShoppingList();
+      getAndDisplayBlog();
     },
     dataType: 'json',
     contentType: 'application/json'
   });
 }
 
-function deleteShoppingItem(itemId) {
-  console.log('Deleting shopping item `' + itemId + '`');
+function deleteBlogPost(itemId) {
+  console.log('Deleting blog post `' + itemId + '`');
   $.ajax({
     url: BLOG_URL + '/' + itemId,
     method: 'DELETE',
-    success: getAndDisplayShoppingList
+    success: getAndDisplayBlog
   });
 }
 
-function updateShoppingListitem(item) {
-  console.log('Updating shopping list item `' + item.id + '`');
-  $.ajax({
-    url: SHOPPING_LIST_URL + '/' + item.id,
-    method: 'PUT',
-    data: JSON.stringify(item),
-    success: function(data) {
-      getAndDisplayShoppingList()
-    },
-    dataType: 'json',
-    contentType: 'application/json'
-  });
-}
+function handleBlogPostAdd() 
 
-
-function handleShoppingListAdd() {
+{
 
   $('#js-blog-form').submit(function(e) {
     e.preventDefault();
-    addShoppingItem({
+    addBlogPost({
       title: $(e.currentTarget).find('#js-new-title').val(),
       author: $(e.currentTarget).find('#js-new-author').val(),
       content: $(e.currentTarget).find('#js-new-content').val()
@@ -88,17 +80,16 @@ function handleShoppingListAdd() {
   });
 
 }
-function handleShoppingListDelete() {
-  $('.js-blog').on('click', '.js-shopping-item-delete', function(e) {
+function handleBlogPostDelete() {
+  $('.js-blog').on('click', '.js-blog-post-delete', function(e) {
     e.preventDefault();
-    deleteShoppingItem(
-      $(e.currentTarget).closest('.js-shopping-item').attr('id'));
+    deleteBlogPost(
+      $(e.currentTarget).closest('.js-blog-post').attr('id'));
   });
 }
 
-
 $(function() {
-  getAndDisplayShoppingList();
-  handleShoppingListAdd();
-  handleShoppingListDelete();
+  getAndDisplayBlog();
+  handleBlogPostAdd();
+  handleBlogPostDelete();
 });
