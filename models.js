@@ -1,3 +1,17 @@
+var mongoose = require('mongoose');
+
+Schema = mongoose.Schema;
+
+var blogModel = new Schema({
+  title:{type:String, required: true},
+  author:{type:String, required: true},
+  content:{type:String, required: true}
+});
+
+module.exports = mongoose.model('blog', blogModel, 'blogPosts');
+
+
+/*
 const uuid = require('uuid');
 
 function StorageException(message) {
@@ -46,3 +60,5 @@ function createBlogPost() {
 module.exports = {
   BlogPost: createBlogPost() 
 }
+
+*/
