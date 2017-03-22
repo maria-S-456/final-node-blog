@@ -5,7 +5,15 @@ var app = express();
 var db = mongoose.connect('mongodb://Emily:rug77hen@ds135790.mlab.com:35790/blog-data');
 var blogs = require('./models.js');
 
-var port = 3000;
+var port = 8000;
+
+app.use(express.static('public')); //make sure this line is here, otherwise api will not render to html
+
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/views/index.html');
+});
+
 app.get('/blog', function(req, res){
 	blogs.find(function(err, data){
 		if(err){
@@ -19,7 +27,7 @@ app.get('/blog', function(req, res){
 });
 
 app.listen(port, function(){
-	console.log('Listening to port 3000');
+	console.log('Listening to port 8000');
 })
 
 /*
