@@ -7,7 +7,7 @@ var blogs = require('./models.js');
 
 var port = 8000;
 
-app.use(express.static('public')); //make sure this line is here, otherwise api will not render to html
+app.use(express.static('public')); 
 
 
 app.get('/', (req, res) => {
