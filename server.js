@@ -2,7 +2,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var app = express();
 
-var db = mongoose.connect('mongodb://<dbusername>:<password>@ds135790.mlab.com:35790/blog-data');
+var db = mongoose.connect('mongodb://Emily:frown8#hun@ds135790.mlab.com:35790/blog-data');
 var blogs = require('./models.js');
 
 var port = 8000;
