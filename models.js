@@ -8,8 +8,17 @@ var blogModel = new Schema({
   content:{type:String, required: true}
 });
 
-module.exports = mongoose.model('blog', blogModel, 'blogPosts');
+blogModel.methods.apiRepr = function(){
+  return {
+    id: this._id,
+    title: this.title,
+    author: this.author,
+    content: this.content
+  };
+}
 
+module.exports = mongoose.model('blog', blogModel, 'blogPosts');
+                                                    //blogPosts is name of collection on mongodb. if it is wrong, you may create a new collection by accident
 
 /*
 const uuid = require('uuid');
