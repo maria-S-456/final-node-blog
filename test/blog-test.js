@@ -2,6 +2,7 @@ const mocha = require('mocha');
 const chai = require('chai');
 const should = chai.should();
 const assert = require('assert');
+const expect = chai.expect;
 const {app, runServer, closeServer} = require('../server.js'); //without this, it will say "app is not defined"
 
 
@@ -15,13 +16,16 @@ it('adds two numbers together', function(){
 		assert(2 + 3 === 5);
 	});
 
+
+//need to run mocha with "mocha -t 10000 blog-test.js" to avoid the timeout error
 it('should make a /GET request', function(done){
 	chai.request(app).get('/blog').end(function(err, res){
 		res.should.be.json;
-		res.should.have.status(201);
-		expect(res.body).to.have.lengthOf(3);
-		});
+		res.should.have.status(200);
+		expect(res.body).to.have.lengthOf(6); //6 is number of documents in your database
 		done();
+		});
+		//done(); this will always pass if done() is placed here
 	});
 
 
