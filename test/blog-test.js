@@ -1,44 +1,28 @@
-/*
-var chai = require('chai');
-var chaiHTTP = require('chai-http'); //added this without line 3, "chai.request is not a function"
-chai.use(chaiHTTP);
-var util = require('util');
-
-//var expect = chai.expect; //added this, no difference
-var mongoose = require('mongoose');
+const mocha = require('mocha');
+const chai = require('chai');
 const should = chai.should();
+const assert = require('assert');
+const {app, runServer, closeServer} = require('../server.js'); //without this, it will say "app is not defined"
 
-/*
-var port = 8000;
-var {DATABASE_URL, TEST_DATABASE_URL} = require('../config.js');
-var {blogPost} = require('../models.js');
-var {app} = require('../server.js');
 
-describe('GET endpoint', function(){
-	let res;
-	return chai.request(app).get('/blog').then(_res => {
-		res = _res;
-		res.should.have.length.of.at.least(1);
+const chaiHTTP = require('chai-http'); //without these, you will get "chai.request is not a function" error
+chai.use(chaiHTTP);
 
-		return blogPost.count();
-	}).then(count => {
-		res.body.should.have.length.of(count);
+//describe a block of tests
+describe('demo tests', function(){
+
+it('adds two numbers together', function(){
+		assert(2 + 3 === 5);
 	});
-});
-*/
 
-var should = require('should');
-var request = require('request');
-var expect = require('chai').expect;
-var {DATABASE_URL, TEST_DATABASE_URL} = require('../config.js');
-var util = require('util');
-
-describe('returns `still believing`', function(){
-	it('returns `still believing`', function(done){
-		request.get({url:DATABASE_URL}, function(error, response, body){
-				expect(response.statusCode).to.equal(200);
-				console.log(body);
-			done();
+it('should make a /GET request', function(done){
+	chai.request(app).get('/blog').end(function(err, res){
+		res.should.be.json;
+		res.should.have.status(201);
+		expect(res.body).to.have.lengthOf(3);
 		});
+		done();
 	});
+
+
 });
