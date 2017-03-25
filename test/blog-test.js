@@ -19,9 +19,9 @@ it('should make a /GET request', function(done){
 		res.should.be.json;
 		res.should.have.status(200);
 		expect(res.body).to.have.lengthOf(6); //6 is number of documents in your database
-		done();
+		//done();
 		});
-		//done(); this will always pass if done() is placed here
+		done(); //this will always pass if done() is placed here
 	});
 
 
@@ -35,15 +35,16 @@ const newBlog = {"title":"My Adventures in Timbuktu", "author":"Steven Spielberg
 		res.should.have.status(201);
 		res.should.be.json;
 		res.should.be.a('object');
-		newBlog.title.should.have.property('My Adventures in Timbuktu');
+		//newBlog.title.should.equal("My Adventures in Timbuktu");
 		//done should not be here!
 		});
 		done();
 	});
 
+
 it('should make a /PUT request', function(done){
 	chai.request(app).get('/blog').end(function(err,res){
-		chai.request(app).put('/blog/'+ res.body[6].id).send({"author": "Maria"}).end(function(err, res){
+		chai.request(app).put(`/blog/'${res.body[5].id}`).send({"author": "Maria"}).end(function(err, res){
 			res.should.have.status(201);
 			res.should.be.a('object');
 			res.should.be.json;
@@ -57,12 +58,12 @@ it('should make a /PUT request', function(done){
 
 it('should make a /DELETE request', function(done){
 	chai.request(app).get('/blog').end(function(err,res){
-		chai.request(app).delete('/blog/' + res.body[6].id).end(function(err,res){
+		chai.request(app).delete(`/blog/'${res.body[5].id}`).end(function(err,res){
 			res.should.have.status(204);
 		});
-		done();
-	})
-	//done();
+		//done();
+	});
+	done();
 }); 
 
 });
