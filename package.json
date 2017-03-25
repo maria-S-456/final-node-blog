@@ -19,7 +19,8 @@
   },
   "devDependencies":{
     "chai": "*",
-    "mocha": "*"
+    "mocha": "*",
+    "chai-http":"*"
   },
   "repository": {
     "type": "git",
