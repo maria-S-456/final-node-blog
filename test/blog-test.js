@@ -10,11 +10,7 @@ const chaiHTTP = require('chai-http'); //without these, you will get "chai.reque
 chai.use(chaiHTTP);
 
 //describe a block of tests
-describe('demo tests', function(){
-
-it('adds two numbers together', function(){
-		assert(2 + 3 === 5);
-	});
+describe('Test RESTful api', function(){
 
 //WORKING
 //need to run mocha with "mocha -t 10000 blog-test.js" to avoid the timeout error
@@ -28,11 +24,45 @@ it('should make a /GET request', function(done){
 		//done(); this will always pass if done() is placed here
 	});
 
+
 it('should make a /POST request', function(done){
-	chai.request(app).get('/blog').send({'title':'My Adventures in Timbuktu', 'Author':'Steven Spielberg', 'Content':'As I arrived, the most fantastic thing happened...'})
+
+const newBlog = {"title":"My Adventures in Timbuktu", "author":"Steven Spielberg", "content":"As I arrived, the most fantastic thing happened..."};
+
+	chai.request(app).post('/blog').send(newBlog)
 	.end(function(err, res){
-		res.should.have.status(200);
+
+		res.should.have.status(201);
+		res.should.be.json;
+		res.should.be.a('object');
+		newBlog.title.should.have.property('My Adventures in Timbuktu');
+		//done should not be here!
+		});
+		done();
+	});
+
+it('should make a /PUT request', function(done){
+	chai.request(app).get('/blog').end(function(err,res){
+		chai.request(app).put('/blog/'+ res.body[6].id).send({"author": "Maria"}).end(function(err, res){
+			res.should.have.status(201);
+			res.should.be.a('object');
+			res.should.be.json;
+			//chai.request(app).put('/blog' + res.body[0].id).send({title: 'Anne Frank'});
+			//done();
+		});
+		//done();
+	});
+	done();
+});
+
+it('should make a /DELETE request', function(done){
+	chai.request(app).get('/blog').end(function(err,res){
+		chai.request(app).delete('/blog/' + res.body[6].id).end(function(err,res){
+			res.should.have.status(204);
+		});
 		done();
 	})
-})
+	//done();
+}); 
+
 });
